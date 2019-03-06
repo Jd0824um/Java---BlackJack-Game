@@ -5,7 +5,6 @@
  *
  */
 public enum Value {
-	One,
 	Two,
 	Three,
 	Four,

@@ -12,7 +12,7 @@ public class Deck {
 	/**
 	 * The array of cards in the deck, where the top card is in the first index.
 	 */
-	private ArrayList<Card> deck;
+	private ArrayList<Card> deck = new ArrayList<>();
 	
 	public Deck() {
 		for (int s = 0; s < 4; s++) { //For suit.

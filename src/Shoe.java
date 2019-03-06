@@ -17,7 +17,7 @@ public class Shoe {
 	/**
 	 * An ArrayList that holds all the cards from all the decks.
 	 */
-	private ArrayList<Card> shoe;
+	private ArrayList<Card> shoe = new ArrayList<Card>();
 	
 	/**
 	 * Default constructor if arguments were not specified.
@@ -35,7 +35,7 @@ public class Shoe {
 	public Shoe(int howManyDecks, boolean shuffle) {
 		this.numDecksInShoe = howManyDecks;
 		
-		for (int d = 0; d < numDecksInShoe; d++) {
+		for (int d = 0; d < this.numDecksInShoe; d++) {
 			ArrayList<Card> deck = new ArrayList<Card>(new Deck().getDeck());
 
 			for (Card card : deck) { // For each card in the deck.

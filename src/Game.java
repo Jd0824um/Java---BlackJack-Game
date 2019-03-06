@@ -1,11 +1,18 @@
-import java.util.Arrays;
-
+/**
+ * The main 
+ * 
+ * @author John Zika
+ *
+ */
 public class Game {
 
 	public static void main(String[] args) {
-		Shoe shoe = new Shoe(1, true);
+		Shoe shoe = new Shoe(2, false);
 		
-		System.out.println(shoe.getShoe());
+		for (Card card : shoe.getShoe()) {
+			System.out.println(card);
+		}
+		
 
 	}
 
