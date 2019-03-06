@@ -1,0 +1,22 @@
+/**
+ * An enum representing the possible values of a card.
+ * 
+ * @author John Zika
+ *
+ */
+public enum Value {
+	One,
+	Two,
+	Three,
+	Four,
+	Five,
+	Six,
+	Seven,
+	Eight,
+	Nine,
+	Ten,
+	Jack,
+	Queen,
+	King,
+	Ace,
+}
