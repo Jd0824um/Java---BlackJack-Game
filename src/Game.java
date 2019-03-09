@@ -5,7 +5,7 @@ import java.util.Scanner;
  * The main game
  * 
  * @author John Zika
- *
+ *d
  */
 public class Game {
 
@@ -14,13 +14,39 @@ public class Game {
 	private static Shoe shoe;
 	
 	public static void main(String[] args) {
-		createShoe(numberOfDecks(), true);
-		for (Card card : shoe.getShoe()) {
-			System.out.println(card);
-		}
+		mainMenu();		
 	}
 
 	
+	
+	/*
+	 * Main menu method that takes the user's choice and delivers them to the proper method.
+	 */
+	public static void mainMenu() {
+		Menu menu = new Menu();
+		menu.showMenu();
+		String choice = null;
+		
+		while (choice != "1") {
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Choice: ");
+			choice = scanner.nextLine();
+			switch (choice) {
+				case "1":
+					break;
+				case "2":
+					menu.showRules();
+					break;
+				case "3":
+					menu.showCredits();
+					break;
+				case "4":
+					menu.exit();
+				default:
+					System.out.println("Please enter a valid menu choice.");
+			}
+		}
+	}
 
 	
 	/**
@@ -31,25 +57,26 @@ public class Game {
 	public void howManyPlayers(String numPlayers) {
 		
 		if (validation.isInt(numPlayers)) { // Checks to see if it is an int.
-			
-			for (int p = 0; p < Integer.parseInt(numPlayers); p++) {
-				System.out.println("Enter your name player " + p + 1 + " !\n");				
-				Scanner scanner = new Scanner(System.in);	
-				String name = scanner.nextLine(); // Gets the name of the player.
-				
-				while (!validation.playerValidation(name)) { // While invalid information exists, this continues to loop.
-					System.out.println("Not a valid name. Please keep it at 8 characters or less!\n");
-					System.out.println("Please enter your name player " + p + 1 + " !\n");
-					name = scanner.nextLine();		
+			if (Integer.parseInt(numPlayers) < 0 && Integer.parseInt(numPlayers) >= 7) {
+				for (int p = 0; p < Integer.parseInt(numPlayers); p++) {
+					System.out.println("Enter your name player " + p + 1 + " !\n");				
+					Scanner scanner = new Scanner(System.in);	
+					String name = scanner.nextLine(); // Gets the name of the player.
+					
+					while (!validation.playerValidation(name)) { // While invalid information exists, this continues to loop.
+						System.out.println("Not a valid name. Please keep it at 8 characters or less!\n");
+						System.out.println("Please enter your name player " + p + 1 + " !\n");
+						name = scanner.nextLine();		
+					}
+					
+					Player player = new Player(); // Creates a new player object.
+					player.setName(name); // Sets the player's name to the corresponding input.
+					this.players.add(player); // Adds the player to the ArrayList.
+					
+					System.out.println("Welcome " + player.getName() + " !\n");
+					
+					scanner.close(); // Closes the scanner.
 				}
-				
-				Player player = new Player(); // Creates a new player object.
-				player.setName(name); // Sets the player's name to the corresponding input.
-				players.add(player); // Adds the player to the ArrayList.
-				
-				System.out.println("Welcome " + player.getName() + " !\n");
-				
-				scanner.close(); // Closes the scanner.
 			}
 		}
 	}
@@ -74,6 +101,11 @@ public class Game {
 		return numDecks;
 	}
 	
+	/**
+	 * Creates a shoe for the game based on the number of decks.
+	 * @param numDecks
+	 * @param shuffle
+	 */
 	public static void createShoe(String numDecks, boolean shuffle) {
 		shoe = new Shoe(Integer.parseInt(numDecks), shuffle);
 	}

@@ -31,6 +31,7 @@ public class Validation {
 		return false;
 	}
 	
+	
 	/**
 	 * Checks to see if the inputed string is a int.
 	 * @param number
