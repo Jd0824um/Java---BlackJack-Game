@@ -5,7 +5,7 @@ import java.util.Scanner;
  * The main game
  * 
  * @author John Zika
- *d
+ *
  */
 public class Game {
 
@@ -14,38 +14,57 @@ public class Game {
 	private static Shoe shoe;
 	
 	public static void main(String[] args) {
-		mainMenu();		
+		if (mainMenu()) {
+			@SuppressWarnings("resource")
+			Scanner scanner = new Scanner(System.in);
+			int numOfPlayers;
+			do {
+				System.out.println("How many players will be playing BlackJack?...");
+				
+				while (!scanner.hasNextInt()) {
+					System.out.println("Numbers only please!\n How many players?...\n");
+					scanner.next();
+				}
+				numOfPlayers = scanner.nextInt();
+			}
+			while (numOfPlayers > 0 && numOfPlayers <= 8);
+				createPlayer(numOfPlayers);
+		}
 	}
 
-	
 	
 	/*
 	 * Main menu method that takes the user's choice and delivers them to the proper method.
 	 */
-	public static void mainMenu() {
-		Menu menu = new Menu();
-		menu.showMenu();
-		String choice = null;
+	public static boolean mainMenu() {
+		Menu menu = new Menu();		
+		int choice;
+		Scanner scanner = new Scanner(System.in);
 		
-		while (choice != "1") {
-			Scanner scanner = new Scanner(System.in);
-			System.out.print("Choice: ");
-			choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					break;
-				case "2":
-					menu.showRules();
-					break;
-				case "3":
-					menu.showCredits();
-					break;
-				case "4":
-					menu.exit();
-				default:
-					System.out.println("Please enter a valid menu choice.");
+		System.out.println("Welcome to BlackJack!");
+		menu.showMenu();
+		
+		do {
+			while (!scanner.hasNextInt()) {
+				System.out.println("That was not a number. Please enter a number 1 - 4");
+				scanner.next();
+			}
+			
+			choice = scanner.nextInt();
+			
+			switch(choice) {
+			case 2:
+				menu.showRules();
+				break;
+			case 3:
+				menu.showCredits();
+				break;
+			case 4:
+				exit(scanner);
 			}
 		}
+		while (choice != 1);
+		return true;	
 	}
 
 	
@@ -54,7 +73,7 @@ public class Game {
 	 * and stores it within the players ArrayList.
 	 * @param numPlayers
 	 */
-	public void howManyPlayers(String numPlayers) {
+	public static void createPlayer(int numPlayers) {
 		
 		if (validation.isInt(numPlayers)) { // Checks to see if it is an int.
 			if (Integer.parseInt(numPlayers) < 0 && Integer.parseInt(numPlayers) >= 7) {
@@ -85,20 +104,30 @@ public class Game {
 	 * A method to create decks based on the users input.
 	 * @return
 	 */
-	public static String numberOfDecks() {
-		System.out.println("How many decks do you want to use? (Max 8 decks in a shoe.)\n");
+	public static int howManyDecks() {
 		Scanner scanner = new Scanner(System.in);
-		String numDecks = scanner.nextLine();
+		int decks;
 		
-		while (!validation.deckValidation(numDecks)) { // While invalid information exists, this continues to loop.
-			System.out.println(numDecks.toString() + " is not valid.\n");
-			System.out.println("Please make sure the number is within range (1 - 8), not empty, and a whole number.\n");
-			System.out.println("How many decks wouldyou like to use?\n ");
-			numDecks = scanner.nextLine();
-		}
-		
-		scanner.close();
-		return numDecks;
+		do {
+			System.out.println("How many decks do you want to use?\n(Max 8 decks in a shoe.)\n");
+			
+			while (!scanner.hasNextInt()) {
+				System.out.println("Numbers only.");
+				System.out.println("How many decks would you like to use?\n ");
+				scanner.next();
+			}
+			
+			decks = scanner.nextInt();
+			
+			while (decks < 1 && decks >= 8); {
+				System.out.println("Please enter a number from 1-8.\n");
+				scanner.next();
+			}
+
+		}		
+		while (decks > 1 && decks <= 8);
+			scanner.close();
+			return decks;
 	}
 	
 	/**
@@ -108,5 +137,15 @@ public class Game {
 	 */
 	public static void createShoe(String numDecks, boolean shuffle) {
 		shoe = new Shoe(Integer.parseInt(numDecks), shuffle);
+	}
+	
+	/**
+	 * Terminates program.
+	 */
+	public static void exit(Scanner scanner) {
+		System.out.println("Thank you for playing!");
+		System.out.println("Created by John Zika.");
+		scanner.close();
+		System.exit(0);
 	}
 }

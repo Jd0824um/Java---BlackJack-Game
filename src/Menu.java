@@ -13,7 +13,6 @@ public class Menu {
 	 * Shows the menu choices.
 	 */
 	public void showMenu() {
-		System.out.println("Welcome to BlackJack!");
 		System.out.println("Please choose an option from below...\n");
 		System.out.println("1) Play!\n");
 		System.out.println("2) Rules\n");
@@ -28,17 +27,10 @@ public class Menu {
 	public void showCredits() {
 		System.out.println("Created by John Zika");
 	}
-	
-	/**
-	 * Terminates program.
-	 */
-	public void exit() {
-		System.exit(0);
 		
 	/**
 	 * Shows the rules to the game.	
 	 */
-	}
 	public void showRules() {
 		System.out.println("How to Play - General Game Rules\r\n" + 
 				"				In each round of Blackjack, players seated at the table begin by placing a bet into their respective betting positions, also known as ‘boxes’. Each table clearly states the minimum and maximum stakes that players can bet, and bet sizes can be chosen by clicking on the chip icon which denotes the correct value of a desired wager. After all wager(s) are placed, players will be dealt two cards face-up in front of their boxes, and the dealer will receive either one card (European style) or two cards with one face-up and one face-down (Atlantic City style), depending on the variant they are playing.\r\n" + 

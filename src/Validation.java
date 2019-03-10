@@ -13,7 +13,7 @@ public class Validation {
 	 * @return
 	 */
 	public boolean deckValidation(String number) {
-		if (isInt(number) && isEmpty(number) && isInRange(number)) {
+		if (isEmpty(number) && isInRange(number)) {
 			return true;			
 		}
 		return false;
