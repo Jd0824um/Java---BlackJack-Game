@@ -1,5 +1,8 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-
+import javax.imageio.ImageIO;
 
 /**
  * An implementation of a deck of cards.
@@ -7,19 +10,29 @@ import java.util.ArrayList;
  * @author John Zika
  *
  */
+
 public class Deck {
 	
 	/**
 	 * The array of cards in the deck, where the top card is in the first index.
 	 */
+	private Card card;
 	private ArrayList<Card> deck = new ArrayList<>();
 	
 	public Deck() {
-		for (int s = 0; s < 4; s++) { //For suit.
-			for (int v = 0; v < 13; v++) { //For value.
-				this.deck.add(new Card(Suit.values()[s], Value.values()[v])); //Create this card and put it in the deck array.
+		try {
+			BufferedImage cardBackIMG = ImageIO.read(new File("Assets/Card_Backs/Black_Back.png"));
+			for (Suit suit : Suit.values()) {
+				for (Value value : Value.values()) {
+					card = new Card(suit, value, ImageIO.read(new File("Assets/Card_Values/" + value.toString() + "_of_" + suit.toString() + ".png")), cardBackIMG);
+					System.out.println(card.toString());
+					deck.add(card);
+				}
 			}
-		}				
+		} 
+		catch (IOException ex) {
+			// TODO: handle exception
+		}
 	}
 
 	/**
